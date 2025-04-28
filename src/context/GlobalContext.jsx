@@ -8,13 +8,15 @@ export const PostsProvider = ({ children }) => {
     const [posts, setPosts] = useState([])
     const endPoint = 'https://jsonplaceholder.typicode.com/posts'
 
-    useEffect(() => {
-        axios.get(endPoint).then(res => {
-            setPosts(res.data)
-            console.log(posts)
-        })
+    function fetchPosts() {
+        axios.get(endPoint)
+            .then(response => {
+                setPosts(response.data)
+            })
+            .catch(err => console.error(err))
+    }
 
-    }, [])
+    useEffect(fetchPosts, [])
 
 
     useEffect(() => {
